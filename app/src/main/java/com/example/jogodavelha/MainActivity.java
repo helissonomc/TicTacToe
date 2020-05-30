@@ -3,6 +3,7 @@ package com.example.jogodavelha;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
                                 {0,4,8},
                                 {6,4,2}};
     int contador = 0;
+
+    MediaPlayer mediaPlayer;
     public void dropIn(View view){
         ImageView counter = (ImageView) view;
 
@@ -64,8 +67,12 @@ public class MainActivity extends AppCompatActivity {
                     TextView winnerText = (TextView) findViewById(R.id.winnerTextView);
                     if (gameState[winningPosition[0]] == 0) {
                        winnerText.setText("Vermelho Venceu!");
+                       mediaPlayer = (MediaPlayer) MediaPlayer.create(getApplicationContext(), R.raw.vermelhovenceu);
+                       mediaPlayer.start();
                     } else {
                         winnerText.setText("Amarelo Venceu!");
+                        mediaPlayer = (MediaPlayer) MediaPlayer.create(getApplicationContext(), R.raw.amarelovenceu);
+                        mediaPlayer.start();
                     }
                     winnerExist = true;
                     playAgain.setVisibility(View.VISIBLE);
@@ -101,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         player = 0;
         contador = 0;
         winnerExist = false;
-
+        mediaPlayer.release();
         gameState = new int[]{2, 2, 2,
                               2, 2, 2,
                               2, 2, 2};
